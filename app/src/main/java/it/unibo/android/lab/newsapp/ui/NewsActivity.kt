@@ -1,12 +1,13 @@
-package it.unibo.android.lab.newsapp
+package it.unibo.android.lab.newsapp.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import it.unibo.android.lab.newsapp.R
 
-class MainActivity : AppCompatActivity() {
+class NewsActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
