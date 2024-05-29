@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.models.Article
 
@@ -40,11 +41,36 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     }
 
     override fun getItemCount(): Int {
+        return differ.currentList.size
 
     }
 
+    private var onItemClickListener : ((Article) -> Unit)? = null
+
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val article = differ.currentList[position]
+
+        articleImage = holder.itemView.findViewById(R.id.articleImage)
+        articleImage = holder.itemView.findViewById(R.id.articleImage)
+        articleSource = holder.itemView.findViewById(R.id.articleSource)
+        articleTitle = holder.itemView.findViewById(R.id.articleTitle)
+        articleDescription = holder.itemView.findViewById(R.id.articleDescription)
+        articleDateTime = holder.itemView.findViewById(R.id.articleDateTime)
+
+        holder.itemView.apply {
+            Glide.with(this).load(article.urlToImage).into(articleImage)
+            articleSource.text = article.source?.name
+            articleTitle.text = article.title
+            articleDescription.text = article.description
+            articleDateTime.text = article.publishedAt
+
+            setOnClickListener{
+                onItemClickListener?.let {
+                    it(article)
+                }
+            }
+
+        }
     }
 
 }
