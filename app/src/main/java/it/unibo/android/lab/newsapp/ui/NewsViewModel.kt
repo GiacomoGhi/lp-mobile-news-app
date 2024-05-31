@@ -3,9 +3,12 @@ package it.unibo.android.lab.newsapp.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import it.unibo.android.lab.newsapp.models.Article
 import it.unibo.android.lab.newsapp.util.Resource
 import it.unibo.android.lab.newsapp.models.NewsResponse
 import it.unibo.android.lab.newsapp.repository.NewsRepository
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class NewsViewModel (app: Application, val newsRepository: NewsRepository): AndroidViewModel(app){
@@ -23,12 +26,12 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     private fun HandleHeadlinesResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
         if (response.isSuccessful){ //checks if network request is successful
             response.body()?.let {resultResponse ->
-                headlinesPage++ //se va a buon fine incrementa la variabile
+                headlinesPage++ // If so, increments the variable
                 if (headlinesResponse == null){
                     headlinesResponse = resultResponse
-                //If headlineResponse is empty, assign it te value of resultResponse
+                // If headlineResponse is empty, assign it te value of resultResponse
                 } else {
-                    //Oterwise merge new articles with existing ones
+                    // Otherwise merge new articles with existing ones
                     val oldArticles = headlinesResponse?.articles
                     val newArticles = resultResponse.articles
                     oldArticles?.addAll(newArticles)
@@ -62,4 +65,8 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
         }
         return Resource.Error(response.message())
     }
+    fun addToFavourites(article: Article) = viewModelScope.launch {
+        newsRepository.upsert(article) //article being added to favourites
+    }
+
 }
