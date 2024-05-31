@@ -71,5 +71,7 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
 
     fun getFavouriteNews() = newsRepository.getFavouriteNews()
 
-
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        newsRepository.deleteArticle(article)
+    }
 }
