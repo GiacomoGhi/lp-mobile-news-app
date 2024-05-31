@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import it.unibo.android.lab.newsapp.util.Resource
 import it.unibo.android.lab.newsapp.models.NewsResponse
 import it.unibo.android.lab.newsapp.repository.NewsRepository
+import retrofit2.Response
 
 class NewsViewModel (app: Application, val newsRepository: NewsRepository): AndroidViewModel(app){
 
@@ -19,16 +20,20 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     var newSearchQuery: String? = null
     var oldSearchQuery: String? = null
 
-    private fun HandleHeadlinesResponse(response <NewsResponse>): Resource<NewsResponse>{
-        if(response.isSuccesful){
+    private fun HandleHeadlinesResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
+        if(response.isSuccessful){
             response.body()?.let {resultResponse ->
                 headlinesPage++
                 if (headlinesResponse == null){
                     headlinesResponse = resultResponse
                 } else {
-
+                    val oldArticles = headlinesResponse?.articles
+                    val newArticles = resultResponse.articles
+                    oldArticles?.addAll(newArticles)
                 }
+                return Resource.Success(headlinesResponse ?: resultResponse)
             }
         }
+        return Resource.Error(response.message())
     }
 }
