@@ -69,4 +69,7 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
         newsRepository.upsert(article) //article being added to favourites
     }
 
+    fun getFavouriteNews() = newsRepository.getFavouriteNews()
+
+
 }
