@@ -1,6 +1,9 @@
 package it.unibo.android.lab.newsapp.ui
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -73,5 +76,22 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
 
     fun deleteArticle(article: Article) = viewModelScope.launch {
         newsRepository.deleteArticle(article)
+    }
+
+    // This function checks if internet connection is available
+    fun internetConnection(context: Context): Boolean {
+        // Retrieve the connectivity system service and cast it to ConnectivityManager
+        (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).apply {
+            // Get the networkCapab. of the currently active network. If the expression is null returns false
+            return getNetworkCapabilities(activeNetwork)?.run {
+                when {
+                    // Else checks if these transport types are available, if not returns false
+                    hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                    hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                    hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                    else -> false
+                }
+            } ?: false
+        }
     }
 }
