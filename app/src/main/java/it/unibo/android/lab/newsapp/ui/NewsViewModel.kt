@@ -21,7 +21,7 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     var oldSearchQuery: String? = null
 
     private fun HandleHeadlinesResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
-        if(response.isSuccessful){ //checks if network request is successful
+        if (response.isSuccessful){ //checks if network request is successful
             response.body()?.let {resultResponse ->
                 headlinesPage++ //se va a buon fine incrementa la variabile
                 if (headlinesResponse == null){
@@ -39,6 +39,16 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     }
 
     private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
-        
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                if (searchNewsResponse == null || newSearchQuery != oldSearchQuery) {
+                    searchNewsPage = 1
+                    oldSearchQuery = newSearchQuery
+                    searchNewsResponse = resultResponse
+                } else {
+
+                }
+            }
+        }
     }
 }
