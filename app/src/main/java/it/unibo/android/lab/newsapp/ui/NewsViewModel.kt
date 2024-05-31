@@ -21,12 +21,13 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     var oldSearchQuery: String? = null
 
     private fun HandleHeadlinesResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
-        if(response.isSuccessful){
+        if(response.isSuccessful){ //checks if network request is successful
             response.body()?.let {resultResponse ->
-                headlinesPage++
+                headlinesPage++ //se va a buon fine incrementa la variabile
                 if (headlinesResponse == null){
-                    headlinesResponse = resultResponse
+                    headlinesResponse = resultResponse //If headlineResponse is empty, assign it te value of resultResponse
                 } else {
+                    //Oterwise merge new articles with existing ones
                     val oldArticles = headlinesResponse?.articles
                     val newArticles = resultResponse.articles
                     oldArticles?.addAll(newArticles)
@@ -35,5 +36,9 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
             }
         }
         return Resource.Error(response.message())
+    }
+
+    private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
+        
     }
 }
