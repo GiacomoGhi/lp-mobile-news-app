@@ -12,6 +12,7 @@ import it.unibo.android.lab.newsapp.util.Resource
 import it.unibo.android.lab.newsapp.models.NewsResponse
 import it.unibo.android.lab.newsapp.repository.NewsRepository
 import kotlinx.coroutines.launch
+import okio.IOException
 import retrofit2.Response
 
 class NewsViewModel (app: Application, val newsRepository: NewsRepository): AndroidViewModel(app){
@@ -92,6 +93,27 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
                     else -> false
                 }
             } ?: false
+        }
+    }
+
+    // Function that fetches headlines based on country code
+    private suspend fun headlinesInternet(countryCode: String) {
+        headLines.postValue(Resource.Loading())// Posts the loading state to the headlines live date
+        try{
+            // Checks if there is internet connection
+            if (internetConnection(this.getApplication())) {
+                // If so, response stores headLines fetched from the repository and posts the processed result
+                val response = newsRepository.getHeadlines(countryCode, headlinesPage)
+                headLines.postValue(HandleHeadlinesResponse(response))
+            } else {
+                // Else return error
+                headLines.postValue(Resource.Error("No internet connection"))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> headLines.postValue(Resource.Error("Unable to connect"))
+                else -> headLines.postValue(Resource.Error("No signal"))
+            }
         }
     }
 }
