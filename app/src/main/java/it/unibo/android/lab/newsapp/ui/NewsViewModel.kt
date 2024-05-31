@@ -18,4 +18,17 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     var searchNewsResponse: NewsResponse? = null
     var newSearchQuery: String? = null
     var oldSearchQuery: String? = null
+
+    private fun HandleHeadlinesResponse(response <NewsResponse>): Resource<NewsResponse>{
+        if(response.isSuccesful){
+            response.body()?.let {resultResponse ->
+                headlinesPage++
+                if (headlinesResponse == null){
+                    headlinesResponse = resultResponse
+                } else {
+
+                }
+            }
+        }
+    }
 }
