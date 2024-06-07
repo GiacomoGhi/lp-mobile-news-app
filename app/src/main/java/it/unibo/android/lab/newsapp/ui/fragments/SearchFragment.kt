@@ -5,14 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import it.unibo.android.lab.newsapp.R
+import it.unibo.android.lab.newsapp.databinding.FragmentArticleBinding
+import it.unibo.android.lab.newsapp.ui.NewsActivity
+import it.unibo.android.lab.newsapp.ui.NewsViewModel
 
-class SearchFragment : Fragment() {
-  override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_search, container, false)
-  }
+class SearchFragment  {
+
+
 }
