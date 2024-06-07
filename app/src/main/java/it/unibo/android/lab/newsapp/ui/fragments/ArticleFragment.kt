@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewClient
 import androidx.navigation.fragment.navArgs
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.databinding.FragmentArticleBinding
@@ -24,9 +25,12 @@ class ArticleFragment : Fragment(R.layout.fragment_article){
         newsViewModel = (activity as NewsActivity).newsViewModel
         val article = args.article
 
-
         binding.webView.apply {
-            webViewClient = webViewClient
+            // webViewClient handles various events in the webView such as when a new URL is about to be loaded
+            webViewClient = WebViewClient()
+            article.url?.let {
+                loadUrl(it)
+            }
         }
     }
 
