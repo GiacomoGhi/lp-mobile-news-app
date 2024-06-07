@@ -116,4 +116,24 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
             }
         }
     }
+
+    private suspend fun searchNewsInternet(searchQuery: String) {
+        newSearchQuery = searchQuery
+        searchNews.postValue(Resource.Loading()) //Posts the loading state
+        try {
+            if (internetConnection((this.getApplication()))) {
+                // If there is connection fetches searchNews from the repo based on searchQuery
+                // and posts it on searchNews
+                val response = newsRepository.searchNews(searchQuery, searchNewsPage)
+                searchNews.postValue(handleSearchNewsResponse(response))
+            } else {
+                searchNews.postValue(Resource.Error("No internet connection"))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> searchNews.postValue(Resource.Error("Unable to connect"))
+                else -> searchNews.postValue(Resource.Error("No signal"))
+            }
+        }
+    }
 }
