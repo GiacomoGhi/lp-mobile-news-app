@@ -27,6 +27,10 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     var newSearchQuery: String? = null
     var oldSearchQuery: String? = null
 
+    fun getHeadlines(countryCode: String) = viewModelScope.launch {
+        headlinesInternet(countryCode)
+    }
+
     private fun HandleHeadlinesResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
         if (response.isSuccessful){ //checks if network request is successful
             response.body()?.let {resultResponse ->
