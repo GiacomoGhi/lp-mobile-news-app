@@ -117,6 +117,7 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
         }
     }
 
+    // Function that handles internet connection specifically for searchNews
     private suspend fun searchNewsInternet(searchQuery: String) {
         newSearchQuery = searchQuery
         searchNews.postValue(Resource.Loading()) //Posts the loading state
