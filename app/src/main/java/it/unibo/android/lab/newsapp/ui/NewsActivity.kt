@@ -5,8 +5,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.databinding.ActivityNewsBinding
+import it.unibo.android.lab.newsapp.db.ArticleDatabase
+import it.unibo.android.lab.newsapp.repository.NewsRepository
 
 class NewsActivity : AppCompatActivity() {
 
@@ -23,5 +26,10 @@ class NewsActivity : AppCompatActivity() {
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
       insets
     }
+
+    // Creating an instance of newsRep. and providing it w an article database instance
+    val newsRepository = NewsRepository(ArticleDatabase(this))
+    val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
+    newsViewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
   }
 }
