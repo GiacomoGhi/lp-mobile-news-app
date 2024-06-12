@@ -28,4 +28,9 @@ class HeadlineFragment : Fragment() {
 
 
     }
+
+    var isError = false
+    var isLoading = false
+    var isLastPage = false
+    var isScrolling = false
 }
