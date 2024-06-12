@@ -51,6 +51,8 @@ class SearchFragment : Fragment()  {
     }
 
     private fun showErrorMessage(message: String) {
-
+        itemSearchError.visibility = View.VISIBLE
+        errorText.text = message
+        isError = true
     }
 }
