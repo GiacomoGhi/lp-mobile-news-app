@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.google.android.material.snackbar.Snackbar
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.NewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentFavouritesBinding
@@ -58,7 +59,15 @@ class FavouritesFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
-
+                val position = viewHolder.adapterPosition
+                val article = newsAdapter.differ.currentList[position]
+                newsViewModel.deleteArticle(article)
+                Snackbar.make(view, "Removed from favourites", Snackbar.LENGTH_LONG).apply {
+                    setAction("Undo"){
+                        newsViewModel.addToFavourites(article)
+                    }
+                    show()
+                }
             }
         }
     }
