@@ -12,15 +12,43 @@ import androidx.navigation.fragment.navArgs
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.NewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentArticleBinding
+import it.unibo.android.lab.newsapp.databinding.FragmentSearchBinding
 import it.unibo.android.lab.newsapp.ui.NewsActivity
 import it.unibo.android.lab.newsapp.ui.NewsViewModel
 
-class SearchFragment  {
+class SearchFragment : Fragment()  {
 
     lateinit var newsViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
     lateinit var retryButton: Button
     lateinit var errorText: TextView
     lateinit var itemSearchError: CardView
+    lateinit var binding: FragmentSearchBinding
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentSearchBinding.bind(view)
+    }
+
+    var isError = false
+    var isLoading = false
+    var isLastPage = false
+    var isScrolling = false
+
+    private fun hideProgressBar() {
+        binding.paginationProgressBar.visibility = View.INVISIBLE
+        isLoading = false
+    }
+
+    private fun showProgressBar() {
+
+    }
+
+    private fun hideErrorMessage() {
+
+    }
+
+    private fun showErrorMessage(message: String) {
+
+    }
 }
