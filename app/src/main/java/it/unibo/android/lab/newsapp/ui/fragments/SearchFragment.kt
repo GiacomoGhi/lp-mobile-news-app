@@ -94,4 +94,13 @@ class SearchFragment : Fragment()  {
             }
         }
     }
+
+    private fun setupSearchRecycler() {
+        newsAdapter = NewsAdapter()
+        binding.recyclerSearch.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(activity)
+            addOnScrollListener(this@SearchFragment.scrollListener)
+        }
+    }
 }
