@@ -49,5 +49,10 @@ class HeadlineFragment : Fragment() {
         isError = false
     }
 
+    private fun showErrorMessage(message: String) {
+        itemHeadlinesError.visibility = View.VISIBLE
+        errorText.text = message
+        isError = true
+    }
 
 }
