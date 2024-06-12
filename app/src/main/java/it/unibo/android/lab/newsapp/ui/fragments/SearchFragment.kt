@@ -10,6 +10,7 @@ import android.widget.AbsListView
 import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,11 @@ import it.unibo.android.lab.newsapp.databinding.FragmentSearchBinding
 import it.unibo.android.lab.newsapp.ui.NewsActivity
 import it.unibo.android.lab.newsapp.ui.NewsViewModel
 import it.unibo.android.lab.newsapp.util.Costants
+import it.unibo.android.lab.newsapp.util.Costants.Companion.SEARCH_NEWS_TIME_DELAY
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment()  {
 
@@ -51,6 +57,20 @@ class SearchFragment : Fragment()  {
                 putSerializable("article", it)
             }
             findNavController().navigate(R.id.action_searchFragment_to_articleFragment, bundle)
+        }
+
+        var job: Job? = null
+        binding.searchEdit.addTextChangedListener(){ editable ->
+            job?.cancel()
+            job = MainScope().launch {
+                delay(SEARCH_NEWS_TIME_DELAY)
+                editable?.let{
+                    if (editable.toString().isNotEmpty()){
+                        newsViewModel.searchNews(editable.toString())
+                    }
+                }
+
+            }
         }
     }
 
