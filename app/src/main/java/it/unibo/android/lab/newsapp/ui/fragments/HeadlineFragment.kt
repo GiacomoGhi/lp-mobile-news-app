@@ -10,6 +10,7 @@ import android.widget.AbsListView
 import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import it.unibo.android.lab.newsapp.databinding.FragmentHeadlineBinding
 import it.unibo.android.lab.newsapp.ui.NewsActivity
 import it.unibo.android.lab.newsapp.ui.NewsViewModel
 import it.unibo.android.lab.newsapp.util.Costants
+import it.unibo.android.lab.newsapp.util.Resource
 
 class HeadlineFragment : Fragment() {
 
@@ -52,6 +54,29 @@ class HeadlineFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_headlineFragment_to_articleFragment, bundle)
         }
+
+        newsViewModel.headLines.observe(viewLifecycleOwner, Observer { response ->
+            when(response){
+                is Resource.Success<*> -> {
+                    hideProgressBar()
+                    hideErrorMessage()
+                    response.data?.let { newsResponse ->
+                        newsAdapter.differ.submitList(newsResponse.articles.toList())
+                        val totalPages = newsResponse.totalResults / Costants.QUERY_PAGE_SIZE + 2
+                        isLastPage = newsViewModel.headlinesPage == totalPages
+                        if (isLastPage) {
+                            binding.recyclerHeadlines.setPadding(0,0,0,0)
+                        }
+                    }
+                }
+                is Resource.Error<*> -> {
+
+                }
+                is Resource.Loading<*> -> {
+
+                }
+            }
+        })
     }
 
     var isError = false
