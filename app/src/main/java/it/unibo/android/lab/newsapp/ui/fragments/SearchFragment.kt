@@ -41,7 +41,8 @@ class SearchFragment : Fragment()  {
     }
 
     private fun showProgressBar() {
-
+        binding.paginationProgressBar.visibility = View.VISIBLE
+        isLoading = true
     }
 
     private fun hideErrorMessage() {
