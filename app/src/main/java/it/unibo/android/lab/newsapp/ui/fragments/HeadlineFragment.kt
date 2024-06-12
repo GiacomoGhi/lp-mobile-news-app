@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.NewsAdapter
+import it.unibo.android.lab.newsapp.databinding.FragmentHeadlineBinding
 import it.unibo.android.lab.newsapp.ui.NewsViewModel
 
 class HeadlineFragment : Fragment() {
@@ -19,6 +20,12 @@ class HeadlineFragment : Fragment() {
     lateinit var retryButton: Button
     lateinit var errorText: TextView
     lateinit var itemHeadlinesError: CardView
+    lateinit var binding: FragmentHeadlineBinding
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentHeadlineBinding.bind(view)
 
 
+    }
 }
