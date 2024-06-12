@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -70,10 +71,14 @@ class HeadlineFragment : Fragment() {
                     }
                 }
                 is Resource.Error<*> -> {
-
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Toast.makeText(activity, "Sorry error: $message", Toast.LENGTH_LONG).show()
+                        showErrorMessage(message)
+                    }
                 }
                 is Resource.Loading<*> -> {
-
+                    showProgressBar()
                 }
             }
         })
