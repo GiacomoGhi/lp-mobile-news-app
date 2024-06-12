@@ -1,14 +1,17 @@
 package it.unibo.android.lab.newsapp.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.NewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentFavouritesBinding
+import it.unibo.android.lab.newsapp.ui.NewsActivity
 import it.unibo.android.lab.newsapp.ui.NewsViewModel
 
 /*
@@ -27,6 +30,16 @@ class FavouritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFavouritesBinding.bind(view)
+
+        newsViewModel = (activity as NewsActivity).newsViewModel
+        setUpFavouriteRecycler()
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(R.id.action_favouritesFragment2_to_articleFragment, bundle)
+        }
     }
 
     private fun setUpFavouriteRecycler() {
