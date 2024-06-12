@@ -100,7 +100,16 @@ class SearchFragment : Fragment()  {
                     showProgressBar()
                 }
             }
-        })    }
+        })
+
+        retryButton.setOnClickListener {
+            if (binding.searchEdit.text.toString().isNotEmpty()){
+                newsViewModel.searchNews(binding.searchEdit.text.toString())
+            } else {
+                hideErrorMessage()
+            }
+        }
+    }
 
     var isError = false
     var isLoading = false
