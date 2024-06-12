@@ -82,6 +82,10 @@ class HeadlineFragment : Fragment() {
                 }
             }
         })
+
+        retryButton.setOnClickListener {
+            newsViewModel.getHeadlines("it")
+        }
     }
 
     var isError = false
