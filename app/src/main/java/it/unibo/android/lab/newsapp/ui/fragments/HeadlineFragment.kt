@@ -24,7 +24,7 @@ import it.unibo.android.lab.newsapp.ui.NewsViewModel
 import it.unibo.android.lab.newsapp.util.Costants
 import it.unibo.android.lab.newsapp.util.Resource
 
-class HeadlineFragment : Fragment() {
+class HeadlineFragment : Fragment(R.layout.fragment_headline) {
 
     lateinit var newsViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter

@@ -27,7 +27,7 @@ import it.unibo.android.lab.newsapp.ui.NewsViewModel
 * 3 - The article is deleted when the user swipes left on it
 * 4 - User can undo his delete action
 */
-class FavouritesFragment : Fragment() {
+class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
     lateinit var newsViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
