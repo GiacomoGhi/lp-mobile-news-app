@@ -23,5 +23,8 @@ class FavouritesFragment : Fragment() {
     lateinit var newsAdapter: NewsAdapter
     lateinit var binding: FragmentFavouritesBinding
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentFavouritesBinding.bind(view)
+    }
 }
