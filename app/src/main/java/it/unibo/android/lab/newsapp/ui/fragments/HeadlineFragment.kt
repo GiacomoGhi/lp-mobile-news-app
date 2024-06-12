@@ -39,5 +39,8 @@ class HeadlineFragment : Fragment() {
         isLoading = false
     }
 
-
+    private fun showProgressBar() {
+        binding.paginationProgressBar.visibility = View.VISIBLE
+        isLoading = true
+    }
 }
