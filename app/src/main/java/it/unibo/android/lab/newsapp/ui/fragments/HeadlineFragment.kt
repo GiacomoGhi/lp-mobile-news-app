@@ -33,4 +33,11 @@ class HeadlineFragment : Fragment() {
     var isLoading = false
     var isLastPage = false
     var isScrolling = false
+
+    private fun hideProgressBar() {
+        binding.paginationProgressBar.visibility = View.INVISIBLE
+        isLoading = false
+    }
+
+
 }
