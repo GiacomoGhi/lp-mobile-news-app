@@ -1,5 +1,6 @@
 package it.unibo.android.lab.newsapp.ui.fragments
 
+import android.content.ClipData.Item
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.NewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentFavouritesBinding
@@ -39,6 +43,23 @@ class FavouritesFragment : Fragment() {
                 putSerializable("article", it)
             }
             findNavController().navigate(R.id.action_favouritesFragment2_to_articleFragment, bundle)
+        }
+
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return true
+            }
+
+            override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+
+            }
         }
     }
 
