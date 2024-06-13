@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="SOURCE"
-        android:fontFamily="@font/poppins"
         android:textColor="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/articleImage" />
