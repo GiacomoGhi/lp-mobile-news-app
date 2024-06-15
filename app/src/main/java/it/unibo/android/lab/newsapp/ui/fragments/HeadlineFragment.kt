@@ -2,6 +2,7 @@ package it.unibo.android.lab.newsapp.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,8 @@ import it.unibo.android.lab.newsapp.util.Costants
 import it.unibo.android.lab.newsapp.util.Resource
 
 class HeadlineFragment : Fragment(R.layout.fragment_headline) {
+
+    private val TAG = "HeadlineFragment"
 
     lateinit var newsViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
@@ -53,7 +56,8 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
             val bundle = Bundle().apply {
                 putSerializable("article", it)
             }
-            findNavController().navigate(R.id.action_headlineFragment2_to_articleFragment, bundle)
+            Log.d(TAG, "Navigate to article with bundle content: $bundle")
+            findNavController().navigate(R.id.action_headlinesFragment_to_articleFragment, bundle)
         }
 
         newsViewModel.headLines.observe(viewLifecycleOwner, Observer { response ->
@@ -84,7 +88,7 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
         })
 
         retryButton.setOnClickListener {
-            newsViewModel.getHeadlines("it")
+            newsViewModel.getHeadlines("us")
         }
     }
 
@@ -134,7 +138,7 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
             val shouldPaginate =
                 isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if (shouldPaginate) {
-                newsViewModel.getHeadlines("it")
+                newsViewModel.getHeadlines("us")
                 isScrolling = false
             }
 

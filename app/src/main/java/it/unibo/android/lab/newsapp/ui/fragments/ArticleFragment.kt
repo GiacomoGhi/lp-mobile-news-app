@@ -16,7 +16,11 @@ import it.unibo.android.lab.newsapp.ui.NewsViewModel
 class ArticleFragment : Fragment(R.layout.fragment_article){
 
     lateinit var newsViewModel: NewsViewModel
-    val args: ArticleFragmentArgs by navArgs()
+
+    // Here access the article that is passed as argument to this fragment
+    // check argument tag in news_nav_graph.xml
+    val args: ArticleFragmentArgs by navArgs() // built in safe args method to access fragment arguments
+
     lateinit var binding: FragmentArticleBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

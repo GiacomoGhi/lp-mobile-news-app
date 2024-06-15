@@ -28,7 +28,7 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     var oldSearchQuery: String? = null
 
     init {
-        getHeadlines("it")
+        getHeadlines("us")
     }
 
     fun getHeadlines(countryCode: String) = viewModelScope.launch {
@@ -40,7 +40,7 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     }
 
 
-    private fun HandleHeadlinesResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
+    private fun handleHeadlinesResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
         if (response.isSuccessful){ //checks if network request is successful
             response.body()?.let {resultResponse ->
                 headlinesPage++ // If so, increments the variable
@@ -117,7 +117,7 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
             if (internetConnection(this.getApplication())) {
                 // If so, response stores headLines fetched from the repository and posts the processed result
                 val response = newsRepository.getHeadlines(countryCode, headlinesPage)
-                headLines.postValue(HandleHeadlinesResponse(response))
+                headLines.postValue(handleHeadlinesResponse(response))
             } else {
                 // Else return error
                 headLines.postValue(Resource.Error("No internet connection"))

@@ -21,13 +21,7 @@ class NewsActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityNewsBinding.inflate(layoutInflater)
-    enableEdgeToEdge()
     setContentView(binding.root)
-    /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root)) { v, insets ->
-      val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-      v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-      insets }*/
-
 
     // Creating an instance of newsRep. and providing it w an article database instance
     val newsRepository = NewsRepository(ArticleDatabase(this))

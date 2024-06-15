@@ -3,6 +3,7 @@ package it.unibo.android.lab.newsapp.ui.fragments
 import android.content.ClipData.Item
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,8 @@ import it.unibo.android.lab.newsapp.ui.NewsViewModel
 */
 class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
+    private val TAG = "FavouritesFragment"
+
     lateinit var newsViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
     lateinit var binding: FragmentFavouritesBinding
@@ -44,9 +47,11 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
             val bundle = Bundle().apply {
                 putSerializable("article", it)
             }
-            findNavController().navigate(R.id.action_favouritesFragment2_to_articleFragment, bundle)
+            Log.d(TAG, "Navigate to article with bundle content: $bundle")
+            findNavController().navigate(R.id.action_favouritesFragment_to_articleFragment, bundle)
         }
 
+        // swipe left feature
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
@@ -59,7 +64,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
                 return true
             }
 
-            override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val article = newsAdapter.differ.currentList[position]
                 newsViewModel.deleteArticle(article)

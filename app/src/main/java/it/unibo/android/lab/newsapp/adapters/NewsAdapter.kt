@@ -1,5 +1,6 @@
 package it.unibo.android.lab.newsapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,8 @@ import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.models.Article
 
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+
+    private val TAG = "NewsAdapter"
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     lateinit var articleImage: ImageView
@@ -50,7 +53,6 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
         val article = differ.currentList[position]
 
         articleImage = holder.itemView.findViewById(R.id.articleImage)
-        articleImage = holder.itemView.findViewById(R.id.articleImage)
         articleSource = holder.itemView.findViewById(R.id.articleSource)
         articleTitle = holder.itemView.findViewById(R.id.articleTitle)
         articleDescription = holder.itemView.findViewById(R.id.articleDescription)
@@ -65,7 +67,11 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
             setOnClickListener{
                 onItemClickListener?.let {
-                    it(article)
+                    if (article != null) {
+                        it(article)
+                    } else {
+                        Log.w(TAG, "Article is null!")
+                    }
                 }
             }
 
