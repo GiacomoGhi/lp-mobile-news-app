@@ -9,10 +9,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search."
+        android:text="@string/menu_search"
         android:textSize="30sp"
         android:textColor="@color/purple"
         android:textStyle="bold"
+        android:fontFamily="@font/poppins"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toTopOf="parent"

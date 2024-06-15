@@ -42,7 +42,6 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     override fun getItemCount(): Int {
         return differ.currentList.size
-
     }
 
     private var onItemClickListener : ((Article) -> Unit)? = null
@@ -59,7 +58,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
         holder.itemView.apply {
             Glide.with(this).load(article.urlToImage).into(articleImage)
-            articleSource.text = article.source?.name
+            articleSource.text = article.source.name
             articleTitle.text = article.title
             articleDescription.text = article.description
             articleDateTime.text = article.publishedAt
