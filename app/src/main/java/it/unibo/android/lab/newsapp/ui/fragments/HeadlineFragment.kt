@@ -87,6 +87,26 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
             }
         })
 
+        newsViewModel.newsResponse.observe(viewLifecycleOwner) { response ->
+            response.data?.body?.toString()?.let { Log.d(TAG, it) }
+            /*when (response) {
+                is Resource.Success<*> -> {
+                    Log.d(TAG, response.toString())
+                    response.data?.let {
+                        it.newsBody.forEach{item -> Log.d(TAG, item.title)}
+                    }
+                }
+
+                is Resource.Error<*> -> {
+                    Log.d(TAG, "mammt")
+                }
+
+                is Resource.Loading -> {
+                    Log.d(TAG, "mammt loading")
+                }
+            }*/
+        }
+
         retryButton.setOnClickListener {
             newsViewModel.getHeadlines("us")
         }

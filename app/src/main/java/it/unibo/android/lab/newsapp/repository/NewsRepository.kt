@@ -5,6 +5,11 @@ import it.unibo.android.lab.newsapp.db.ArticleDatabase
 import it.unibo.android.lab.newsapp.models.Article
 
 class NewsRepository(val db: ArticleDatabase) {
+    suspend fun getNews() =
+        RetrofitInstance.apiClient.getMarketNews()
+
+    suspend fun getQuotes(ticker: List<String>?) =
+        RetrofitInstance.apiClient.getMarketQuotes(ticker)
 
     suspend fun getHeadlines(countryCode: String, pageNumber: Int) =
         RetrofitInstance.api.getHeadlines(countryCode, pageNumber)

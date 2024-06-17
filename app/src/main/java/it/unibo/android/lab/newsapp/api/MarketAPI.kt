@@ -12,17 +12,17 @@ interface MarketAPI {
   @GET("api/v2/markets/news")
   suspend fun getMarketNews(
     @Header("X-RapidAPI-Key")
-    apiKey: String = Costants.API_KEY
+    apiKey: String = Costants.API_KEY_YH
   ): Response<NewsResponse>
 
   @GET("api/v1/markets/stock/quotes")
   suspend fun getMarketQuotes(
     @Query("ticker")
-    ticker: List<String> =
+    ticker: List<String>? =
       listOf(
         "AAPL", "MSFT", "^SPX", "^NYA", "GAZP.ME", "SIBN.ME", "GEECEE.NS"
       ), // uses some default values
     @Header("X-RapidAPI-Key")
-    apiKey: String = Costants.API_KEY
+    apiKey: String = Costants.API_KEY_YH
   ): Response<QuotesResponse>
 }
