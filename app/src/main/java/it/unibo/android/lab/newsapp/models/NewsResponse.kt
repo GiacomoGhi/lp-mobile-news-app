@@ -1,7 +1,6 @@
 package it.unibo.android.lab.newsapp.models
 
 data class NewsResponse(
-  val articles: MutableList<Article>,
-  val status: String,
-  val totalResults: Int
+    val newsBody: MutableList<NewsBody>,
+    val newsMeta: NewsMeta
 )

@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import it.unibo.android.lab.newsapp.models.Article
 import it.unibo.android.lab.newsapp.util.Resource
-import it.unibo.android.lab.newsapp.models.NewsResponse
+import it.unibo.android.lab.newsapp.models.NewsResponse1
 import it.unibo.android.lab.newsapp.repository.NewsRepository
 import kotlinx.coroutines.launch
 import okio.IOException
@@ -17,13 +17,13 @@ import retrofit2.Response
 
 class NewsViewModel (app: Application, val newsRepository: NewsRepository): AndroidViewModel(app){
 
-    val headLines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    val headLines: MutableLiveData<Resource<NewsResponse1>> = MutableLiveData()
     var headlinesPage = 1
-    var headlinesResponse: NewsResponse? = null
+    var headlinesResponse: NewsResponse1? = null
 
-    val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    val searchNews: MutableLiveData<Resource<NewsResponse1>> = MutableLiveData()
     var searchNewsPage = 1
-    var searchNewsResponse: NewsResponse? = null
+    var searchNewsResponse1: NewsResponse1? = null
     var newSearchQuery: String? = null
     var oldSearchQuery: String? = null
 
@@ -40,7 +40,7 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
     }
 
 
-    private fun handleHeadlinesResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
+    private fun handleHeadlinesResponse(response: Response<NewsResponse1>): Resource<NewsResponse1>{
         if (response.isSuccessful){ //checks if network request is successful
             response.body()?.let {resultResponse ->
                 headlinesPage++ // If so, increments the variable
@@ -59,25 +59,25 @@ class NewsViewModel (app: Application, val newsRepository: NewsRepository): Andr
         return Resource.Error(response.message())
     }
 
-    private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
+    private fun handleSearchNewsResponse(response: Response<NewsResponse1>) : Resource<NewsResponse1> {
         if (response.isSuccessful) { // Checks again if the network request is ok
             response.body()?.let { resultResponse ->
                 // Searches if newsResponse is null or the searchQuery has changed
-                if (searchNewsResponse == null || newSearchQuery != oldSearchQuery) {
+                if (searchNewsResponse1 == null || newSearchQuery != oldSearchQuery) {
                     // If so, resets the page count to 1
                     // then updates tue query and assigns the result to searchNewsResponse
                     searchNewsPage = 1
                     oldSearchQuery = newSearchQuery
-                    searchNewsResponse = resultResponse
+                    searchNewsResponse1 = resultResponse
                 } else {
                     // If not, increments the page count and merges the new articles w the existing ones
                     // in searchNewsResponse
                     searchNewsPage++
-                    val oldArticles = searchNewsResponse?.articles
+                    val oldArticles = searchNewsResponse1?.articles
                     val newArticles = resultResponse.articles
                     oldArticles?.addAll(newArticles)
                 }
-                return Resource.Success(searchNewsResponse ?: resultResponse)
+                return Resource.Success(searchNewsResponse1 ?: resultResponse)
             }
         }
         return Resource.Error(response.message())
