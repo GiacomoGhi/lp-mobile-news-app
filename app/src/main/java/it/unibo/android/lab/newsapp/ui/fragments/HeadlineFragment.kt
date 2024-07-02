@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior.OnScrollStateChangedListener
 import it.unibo.android.lab.newsapp.R
+import it.unibo.android.lab.newsapp.adapters.MarketNewsAdapter
 import it.unibo.android.lab.newsapp.adapters.NewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentHeadlineBinding
 import it.unibo.android.lab.newsapp.ui.NewsActivity
@@ -30,7 +31,7 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
     private val TAG = "HeadlineFragment"
 
     lateinit var newsViewModel: NewsViewModel
-    lateinit var newsAdapter: NewsAdapter
+    lateinit var marketNewsAdapter: MarketNewsAdapter
     lateinit var retryButton: Button
     lateinit var errorText: TextView
     lateinit var itemHeadlinesError: CardView
@@ -52,7 +53,7 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
         newsViewModel = (activity as NewsActivity).newsViewModel
         setupHeadlinesRecycler()
 
-        newsAdapter.setOnItemClickListener {
+        marketNewsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article", it)
             }
@@ -60,18 +61,13 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
             findNavController().navigate(R.id.action_headlinesFragment_to_articleFragment, bundle)
         }
 
-        newsViewModel.headLines.observe(viewLifecycleOwner, Observer { response ->
+        newsViewModel.newsResponse.observe(viewLifecycleOwner) { response ->
             when(response){
                 is Resource.Success<*> -> {
                     hideProgressBar()
                     hideErrorMessage()
                     response.data?.let { newsResponse ->
-                        newsAdapter.differ.submitList(newsResponse.articles.toList())
-                        val totalPages = newsResponse.totalResults / Costants.QUERY_PAGE_SIZE + 2
-                        isLastPage = newsViewModel.headlinesPage == totalPages
-                        if (isLastPage) {
-                            binding.recyclerHeadlines.setPadding(0,0,0,0)
-                        }
+                        marketNewsAdapter.differ.submitList(newsResponse.body.toList())
                     }
                 }
                 is Resource.Error<*> -> {
@@ -85,26 +81,6 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
                     showProgressBar()
                 }
             }
-        })
-
-        newsViewModel.newsResponse.observe(viewLifecycleOwner) { response ->
-            response.data?.body?.toString()?.let { Log.d(TAG, it) }
-            /*when (response) {
-                is Resource.Success<*> -> {
-                    Log.d(TAG, response.toString())
-                    response.data?.let {
-                        it.newsBody.forEach{item -> Log.d(TAG, item.title)}
-                    }
-                }
-
-                is Resource.Error<*> -> {
-                    Log.d(TAG, "mammt")
-                }
-
-                is Resource.Loading -> {
-                    Log.d(TAG, "mammt loading")
-                }
-            }*/
         }
 
         retryButton.setOnClickListener {
@@ -114,8 +90,6 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
 
     var isError = false
     var isLoading = false
-    var isLastPage = false
-    var isScrolling = false
 
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
@@ -137,47 +111,11 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
         errorText.text = message
         isError = true
     }
-
-    val scrollListener = object : RecyclerView.OnScrollListener() {
-
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-
-            // Gather information about first visible item and the count of visible and total item
-            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-            val visibleItemCount = layoutManager.childCount
-            val totalItemCount = layoutManager.itemCount
-
-            // Values that must be satisfied for pagination to occur
-            val isNoErrors = !isError
-            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
-            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
-            val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= Costants.QUERY_PAGE_SIZE
-            val shouldPaginate =
-                isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
-            if (shouldPaginate) {
-                newsViewModel.getHeadlines("us")
-                isScrolling = false
-            }
-
-        }
-
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-
-            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                isScrolling = true
-            }
-        }
-    }
     private fun setupHeadlinesRecycler() {
-        newsAdapter = NewsAdapter()
+        marketNewsAdapter = MarketNewsAdapter()
         binding.recyclerHeadlines.apply {
-            adapter = newsAdapter
+            adapter = marketNewsAdapter
             layoutManager = LinearLayoutManager(activity)
-            addOnScrollListener(this@HeadlineFragment.scrollListener)
         }
     }
 }
