@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
-        android:name="it.unibo.android.lab.newsapp.ui.fragments.FavouritesFragment"
+        android:name="it.unibo.android.lab.newsapp.ui.fragments.WatchLaterFragment"
         android:label="FavouritesFragment">
         <action
             android:id="@+id/action_favouritesFragment_to_articleFragment"

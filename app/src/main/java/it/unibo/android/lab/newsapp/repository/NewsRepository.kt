@@ -2,7 +2,7 @@ package it.unibo.android.lab.newsapp.repository
 
 import it.unibo.android.lab.newsapp.api.RetrofitInstance
 import it.unibo.android.lab.newsapp.db.NewsBodyDatabase
-import it.unibo.android.lab.newsapp.models.Article
+import it.unibo.android.lab.newsapp.models.NewsBody
 
 class NewsRepository(val db: NewsBodyDatabase) {
     suspend fun getNews() =
@@ -17,9 +17,9 @@ class NewsRepository(val db: NewsBodyDatabase) {
     suspend fun searchNews(searchQuery: String, pageNumber: Int) =
         RetrofitInstance.api.searchForNews(searchQuery, pageNumber)
 
-    suspend fun upsert(article: Article) = db.getArticleDao().upsert(article)
+    suspend fun upsert(article: NewsBody) = db.getArticleDao().upsert(article)
 
     fun getFavouriteNews() = db.getArticleDao().getAllArticles()
 
-    suspend fun deleteArticle(article: Article) = db.getArticleDao().deleteArticle(article)
+    suspend fun deleteArticle(article: NewsBody) = db.getArticleDao().deleteArticle(article)
 }
