@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import it.unibo.android.lab.newsapp.models.Article
+import it.unibo.android.lab.newsapp.models.NewsBody
 import it.unibo.android.lab.newsapp.models.NewsResponse
 import it.unibo.android.lab.newsapp.util.Resource
 import it.unibo.android.lab.newsapp.models.NewsResponse1
@@ -103,13 +103,13 @@ class NewsViewModel (
         }
         return Resource.Error(response.message())
     }
-    fun addToFavourites(article: Article) = viewModelScope.launch {
+    fun addToFavourites(article: NewsBody) = viewModelScope.launch {
         newsRepository.upsert(article) //article being added to favourites
     }
 
     fun getFavouriteNews() = newsRepository.getFavouriteNews()
 
-    fun deleteArticle(article: Article) = viewModelScope.launch {
+    fun deleteArticle(article: NewsBody) = viewModelScope.launch {
         newsRepository.deleteArticle(article)
     }
 

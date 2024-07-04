@@ -36,6 +36,6 @@
         android:label="ArticleFragment" >
         <argument
             android:name="article"
-            app:argType="it.unibo.android.lab.newsapp.models.Article" />
+            app:argType="it.unibo.android.lab.newsapp.models.NewsBody" />
     </fragment>
 </navigation>

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import it.unibo.android.lab.newsapp.R
-import it.unibo.android.lab.newsapp.models.Article
+import it.unibo.android.lab.newsapp.models.NewsBody
 
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
@@ -24,12 +24,12 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     lateinit var articleDescription: TextView
     lateinit var articleDateTime: TextView
 
-    private val differCallback = object : DiffUtil.ItemCallback<Article>(){
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<NewsBody>(){
+        override fun areItemsTheSame(oldItem: NewsBody, newItem: NewsBody): Boolean {
             return oldItem.url == newItem.url
         }
 
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areContentsTheSame(oldItem: NewsBody, newItem: NewsBody): Boolean {
             return oldItem == newItem
         }
 
@@ -47,7 +47,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
         return differ.currentList.size
     }
 
-    private var onItemClickListener : ((Article) -> Unit)? = null
+    private var onItemClickListener : ((NewsBody) -> Unit)? = null
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = differ.currentList[position]
@@ -70,14 +70,14 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
                     if (article != null) {
                         it(article)
                     } else {
-                        Log.w(TAG, "Article is null!")
+                        Log.w(TAG, "NewsBody is null!")
                     }
                 }
             }
 
         }
     }
-    fun setOnItemClickListener(listener: (Article) -> Unit){
+    fun setOnItemClickListener(listener: (NewsBody) -> Unit){
         onItemClickListener = listener
     }
 

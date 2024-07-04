@@ -1,23 +1,19 @@
 package it.unibo.android.lab.newsapp.ui.fragments
 
-import android.content.ClipData.Item
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.snackbar.Snackbar
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.NewsAdapter
-import it.unibo.android.lab.newsapp.databinding.FragmentFavouritesBinding
+import it.unibo.android.lab.newsapp.databinding.FragmentWatchlaterBinding
+import it.unibo.android.lab.newsapp.models.NewsBody
 import it.unibo.android.lab.newsapp.ui.NewsActivity
 import it.unibo.android.lab.newsapp.ui.NewsViewModel
 
@@ -28,24 +24,24 @@ import it.unibo.android.lab.newsapp.ui.NewsViewModel
 * 3 - The article is deleted when the user swipes left on it
 * 4 - User can undo his delete action
 */
-class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
+class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
 
-    private val TAG = "FavouritesFragment"
+    private val TAG = "WatchLaterFragment"
 
     lateinit var newsViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
-    lateinit var binding: FragmentFavouritesBinding
+    lateinit var binding: FragmentWatchlaterBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentFavouritesBinding.bind(view)
+        binding = FragmentWatchlaterBinding.bind(view)
 
         newsViewModel = (activity as NewsActivity).newsViewModel
         setUpFavouriteRecycler()
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("article", it)
+                putSerializable("NewsBody", it)
             }
             Log.d(TAG, "Navigate to article with bundle content: $bundle")
             findNavController().navigate(R.id.action_favouritesFragment_to_articleFragment, bundle)
@@ -81,8 +77,8 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
             attachToRecyclerView(binding.recyclerFavourites)
         }
 
-        newsViewModel.getFavouriteNews().observe(viewLifecycleOwner, Observer { articles ->
-            newsAdapter.differ.submitList(articles)
+        newsViewModel.getFavouriteNews().observe(viewLifecycleOwner, Observer { NewsBody ->
+            newsAdapter.differ.submitList(NewsBody)
         })
     }
 
