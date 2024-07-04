@@ -1,10 +1,10 @@
 package it.unibo.android.lab.newsapp.repository
 
 import it.unibo.android.lab.newsapp.api.RetrofitInstance
-import it.unibo.android.lab.newsapp.db.ArticleDatabase
+import it.unibo.android.lab.newsapp.db.NewsBodyDatabase
 import it.unibo.android.lab.newsapp.models.Article
 
-class NewsRepository(val db: ArticleDatabase) {
+class NewsRepository(val db: NewsBodyDatabase) {
     suspend fun getNews() =
         RetrofitInstance.apiClient.getMarketNews()
 

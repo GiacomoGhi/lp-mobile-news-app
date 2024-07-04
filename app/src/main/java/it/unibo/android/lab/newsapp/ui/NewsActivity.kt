@@ -7,7 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.databinding.ActivityNewsBinding
-import it.unibo.android.lab.newsapp.db.ArticleDatabase
+import it.unibo.android.lab.newsapp.db.NewsBodyDatabase
 import it.unibo.android.lab.newsapp.repository.NewsRepository
 
 class NewsActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class NewsActivity : AppCompatActivity() {
     setContentView(binding.root)
 
     // Creating an instance of newsRep. and providing it w an article database instance
-    val newsRepository = NewsRepository(ArticleDatabase(this))
+    val newsRepository = NewsRepository(NewsBodyDatabase(this))
     val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
     newsViewModel = ViewModelProvider(this, viewModelProviderFactory).get(NewsViewModel::class.java)
 

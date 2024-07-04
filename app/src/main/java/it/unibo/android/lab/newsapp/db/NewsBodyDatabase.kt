@@ -5,21 +5,21 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import it.unibo.android.lab.newsapp.models.Article
+import it.unibo.android.lab.newsapp.models.NewsBody
 
 @Database(
-    entities = [Article::class],
+    entities = [NewsBody::class],
     version = 1
 )
 
 @TypeConverters(Converters::class)
-abstract class ArticleDatabase: RoomDatabase() {
+abstract class NewsBodyDatabase: RoomDatabase() {
 
     abstract fun getArticleDao(): NewsBodyDAO
 
     companion object {
         @Volatile
-        private var instance: ArticleDatabase? = null
+        private var instance: NewsBodyDatabase? = null
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
@@ -31,8 +31,8 @@ abstract class ArticleDatabase: RoomDatabase() {
         private fun createDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                ArticleDatabase::class.java,
-                "article_db.db" // Corrected the syntax error here
+                NewsBodyDatabase::class.java,
+                "newsBody_db.db" // Corrected the syntax error here
             ).build()
     }
 }
