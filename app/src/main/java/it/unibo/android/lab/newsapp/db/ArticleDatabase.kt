@@ -15,7 +15,7 @@ import it.unibo.android.lab.newsapp.models.Article
 @TypeConverters(Converters::class)
 abstract class ArticleDatabase: RoomDatabase() {
 
-    abstract fun getArticleDao(): ArticleDAO
+    abstract fun getArticleDao(): NewsBodyDAO
 
     companion object {
         @Volatile

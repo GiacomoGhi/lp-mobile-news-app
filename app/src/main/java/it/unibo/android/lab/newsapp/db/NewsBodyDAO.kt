@@ -6,17 +6,17 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import it.unibo.android.lab.newsapp.models.Article
+import it.unibo.android.lab.newsapp.models.NewsBody
 
 @Dao
-interface ArticleDAO {
+interface NewsBodyDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(article: Article): Long
+    suspend fun upsert(article: NewsBody): Long
 
-    @Query("SELECT * FROM articles")
-    fun getAllArticles(): LiveData<List<Article>>
+    @Query("SELECT * FROM newsBody")
+    fun getAllArticles(): LiveData<List<NewsBody>>
 
     @Delete
-    suspend fun deleteArticle(article: Article)
+    suspend fun deleteArticle(article: NewsBody)
 }
