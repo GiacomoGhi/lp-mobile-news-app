@@ -13,11 +13,11 @@
 
     </fragment>
     <fragment
-        android:id="@+id/favouritesFragment"
+        android:id="@+id/WatchLaterFragment"
         android:name="it.unibo.android.lab.newsapp.ui.fragments.WatchLaterFragment"
-        android:label="FavouritesFragment">
+        android:label="WatchLaterFragment">
         <action
-            android:id="@+id/action_favouritesFragment_to_articleFragment"
+            android:id="@+id/action_WatchLaterFragment_to_articleFragment"
             app:destination="@id/articleFragment"/>
 
     </fragment>

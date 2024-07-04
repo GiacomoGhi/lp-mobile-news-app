@@ -10,13 +10,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/poppins"
-        android:text="@string/menu_favourites"
+        android:text="@string/menu_WatchLater"
         android:textColor="@color/purple"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerFavourites"
+        android:id="@+id/recyclerWatchLater"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
