@@ -6,24 +6,17 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.behavior.HideBottomViewOnScrollBehavior.OnScrollStateChangedListener
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.MarketNewsAdapter
-import it.unibo.android.lab.newsapp.adapters.NewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentHeadlineBinding
 import it.unibo.android.lab.newsapp.ui.NewsActivity
 import it.unibo.android.lab.newsapp.ui.NewsViewModel
-import it.unibo.android.lab.newsapp.util.Costants
 import it.unibo.android.lab.newsapp.util.Resource
 
 class HeadlineFragment : Fragment(R.layout.fragment_headline) {

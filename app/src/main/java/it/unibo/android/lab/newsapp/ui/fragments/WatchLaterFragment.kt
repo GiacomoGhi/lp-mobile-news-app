@@ -11,9 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import it.unibo.android.lab.newsapp.R
-import it.unibo.android.lab.newsapp.adapters.NewsAdapter
+import it.unibo.android.lab.newsapp.adapters.MarketNewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentWatchlaterBinding
-import it.unibo.android.lab.newsapp.models.NewsBody
 import it.unibo.android.lab.newsapp.ui.NewsActivity
 import it.unibo.android.lab.newsapp.ui.NewsViewModel
 
@@ -29,7 +28,7 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
     private val TAG = "WatchLaterFragment"
 
     lateinit var newsViewModel: NewsViewModel
-    lateinit var newsAdapter: NewsAdapter
+    lateinit var newsAdapter: MarketNewsAdapter
     lateinit var binding: FragmentWatchlaterBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,7 +82,7 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
     }
 
     private fun setUpFavouriteRecycler() {
-        newsAdapter = NewsAdapter()
+        newsAdapter = MarketNewsAdapter()
         binding.recyclerFavourites.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)

@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Button
 import android.widget.TextView
@@ -14,12 +13,10 @@ import androidx.cardview.widget.CardView
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.unibo.android.lab.newsapp.R
-import it.unibo.android.lab.newsapp.adapters.NewsAdapter
-import it.unibo.android.lab.newsapp.databinding.FragmentArticleBinding
+import it.unibo.android.lab.newsapp.adapters.MarketNewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentSearchBinding
 import it.unibo.android.lab.newsapp.ui.NewsActivity
 import it.unibo.android.lab.newsapp.ui.NewsViewModel
@@ -34,7 +31,7 @@ import kotlinx.coroutines.launch
 class SearchFragment : Fragment(R.layout.fragment_search)  {
 
     lateinit var newsViewModel: NewsViewModel
-    lateinit var newsAdapter: NewsAdapter
+    lateinit var newsAdapter: MarketNewsAdapter
     lateinit var retryButton: Button
     lateinit var errorText: TextView
     lateinit var itemSearchError: CardView
@@ -173,7 +170,7 @@ class SearchFragment : Fragment(R.layout.fragment_search)  {
     }
 
     private fun setupSearchRecycler() {
-        newsAdapter = NewsAdapter()
+        newsAdapter = MarketNewsAdapter()
         binding.recyclerSearch.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
