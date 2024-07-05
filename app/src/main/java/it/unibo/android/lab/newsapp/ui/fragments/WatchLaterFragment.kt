@@ -43,7 +43,7 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
                 putSerializable("NewsBody", newsBody)
             }
             Log.d(TAG, "Navigate to article with bundle content: $bundle")
-            findNavController().navigate(R.id.action_WatchLaterFragment_to_articleFragment, bundle)
+            findNavController().navigate(R.id.action_watchLaterFragment_to_articleFragment, bundle)
         }
 
         // swipe left feature

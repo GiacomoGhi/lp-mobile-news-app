@@ -7,7 +7,7 @@
         android:icon="@drawable/baseline_headlines_24"/>
 
     <item
-        android:id="@+id/favouritesFragment"
+        android:id="@+id/watchLaterFragment"
         android:title="@string/menu_WatchLater"
         android:icon="@drawable/baseline_favorite_24"/>
 
