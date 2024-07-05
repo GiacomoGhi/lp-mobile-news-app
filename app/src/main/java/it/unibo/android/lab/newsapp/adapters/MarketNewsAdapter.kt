@@ -37,6 +37,8 @@ class MarketNewsAdapter : RecyclerView.Adapter<MarketNewsAdapter.ArticleViewHold
 
     val differ = AsyncListDiffer(this, differCallback)
 
+    private var onItemClickListener: ((NewsBody) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
         return ArticleViewHolder(itemView)
@@ -45,8 +47,6 @@ class MarketNewsAdapter : RecyclerView.Adapter<MarketNewsAdapter.ArticleViewHold
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-
-    private var onItemClickListener: ((NewsBody) -> Unit)? = null
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = differ.currentList[position]
@@ -68,6 +68,7 @@ class MarketNewsAdapter : RecyclerView.Adapter<MarketNewsAdapter.ArticleViewHold
         onItemClickListener = listener
     }
 }
+
 
 
 //package it.unibo.android.lab.newsapp.adapters

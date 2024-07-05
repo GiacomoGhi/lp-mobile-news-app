@@ -12,7 +12,6 @@ data class NewsBody(
     val img: String,
     val source: String,
     val text: String,
-    val tickers: List<String>,
     val time: String,
     val title: String,
     val type: String,
