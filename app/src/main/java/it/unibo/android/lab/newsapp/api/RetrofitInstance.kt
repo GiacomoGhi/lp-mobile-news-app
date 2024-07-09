@@ -9,19 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstance {
   companion object{
-    private val retrofit2 by lazy {
-      val logging = HttpLoggingInterceptor()
-      logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-      val client = OkHttpClient.Builder()
-        .addInterceptor(logging)
-        .build()
-
-      Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(client)
-        .build()
-    }
 
     private val retrofit by lazy {
       val logging = HttpLoggingInterceptor()
@@ -37,11 +24,7 @@ class RetrofitInstance {
         .build()
     }
 
-    val api by lazy {
-      retrofit2.create(NewsAPI::class.java)
-    }
-
-    val apiClient by lazy {
+    val apiClient: MarketAPI by lazy {
       retrofit.create((MarketAPI::class.java))
     }
   }

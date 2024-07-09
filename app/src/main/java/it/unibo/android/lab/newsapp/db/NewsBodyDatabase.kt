@@ -12,7 +12,6 @@ import it.unibo.android.lab.newsapp.models.NewsBody
     version = 1
 )
 
-@TypeConverters(Converters::class)
 abstract class NewsBodyDatabase: RoomDatabase() {
 
     abstract fun getArticleDao(): NewsBodyDAO
