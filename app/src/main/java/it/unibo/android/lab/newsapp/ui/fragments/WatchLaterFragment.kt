@@ -13,8 +13,8 @@ import com.google.android.material.snackbar.Snackbar
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.MarketNewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentWatchlaterBinding
-import it.unibo.android.lab.newsapp.ui.NewsActivity
-import it.unibo.android.lab.newsapp.ui.NewsViewModel
+import it.unibo.android.lab.newsapp.MainActivity
+import it.unibo.android.lab.newsapp.ui.viewmodels.NewsViewModel
 
 /*
 * Four main uses for this class:
@@ -29,13 +29,13 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
 
     lateinit var newsViewModel: NewsViewModel
     lateinit var marketNewsAdapter: MarketNewsAdapter
-    lateinit var binding: FragmentWatchlaterBinding
+    private lateinit var binding: FragmentWatchlaterBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentWatchlaterBinding.bind(view)
 
-        newsViewModel = (activity as NewsActivity).newsViewModel
+        newsViewModel = (activity as MainActivity).newsViewModel
         setUpWatchLaterRecycler()
 
         marketNewsAdapter.setOnItemClickListener { newsBody ->
@@ -76,8 +76,8 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
             attachToRecyclerView(binding.recyclerWatchLater)
         }
 
-        newsViewModel.getFavouriteNews().observe(viewLifecycleOwner, Observer { NewsBody ->
-            marketNewsAdapter.differ.submitList(NewsBody)
+        newsViewModel.getFavouriteNews().observe(viewLifecycleOwner, Observer { newsBody ->
+            marketNewsAdapter.differ.submitList(newsBody)
         })
     }
 
@@ -115,7 +115,7 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
 //import it.unibo.android.lab.newsapp.adapters.MarketNewsAdapter
 //import it.unibo.android.lab.newsapp.databinding.FragmentWatchlaterBinding
 //import it.unibo.android.lab.newsapp.ui.NewsActivity
-//import it.unibo.android.lab.newsapp.ui.NewsViewModel
+//import it.unibo.android.lab.newsapp.ui.viewmodels.NewsViewModel
 //
 ///*
 //* Four main uses for this class:

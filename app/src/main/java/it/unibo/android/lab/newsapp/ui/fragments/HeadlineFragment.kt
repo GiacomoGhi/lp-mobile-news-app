@@ -15,20 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.MarketNewsAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentHeadlineBinding
-import it.unibo.android.lab.newsapp.ui.NewsActivity
-import it.unibo.android.lab.newsapp.ui.NewsViewModel
+import it.unibo.android.lab.newsapp.MainActivity
+import it.unibo.android.lab.newsapp.ui.viewmodels.NewsViewModel
 import it.unibo.android.lab.newsapp.util.Resource
 
 class HeadlineFragment : Fragment(R.layout.fragment_headline) {
 
     private val TAG = "HeadlineFragment"
 
-    lateinit var newsViewModel: NewsViewModel
-    lateinit var marketNewsAdapter: MarketNewsAdapter
-    lateinit var retryButton: Button
-    lateinit var errorText: TextView
-    lateinit var itemHeadlinesError: CardView
-    lateinit var binding: FragmentHeadlineBinding
+    private lateinit var newsViewModel: NewsViewModel
+    private lateinit var marketNewsAdapter: MarketNewsAdapter
+    private lateinit var retryButton: Button
+    private lateinit var errorText: TextView
+    private lateinit var itemHeadlinesError: CardView
+    private lateinit var binding: FragmentHeadlineBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,12 +38,12 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
         itemHeadlinesError = view.findViewById(R.id.itemHeadlinesError)
 
         val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view: View = inflater.inflate(R.layout.item_error, null)
+        val headlineView: View = inflater.inflate(R.layout.item_error, null)
 
-        retryButton = view.findViewById(R.id.retryButton)
-        errorText = view.findViewById(R.id.errorText)
+        retryButton = headlineView.findViewById(R.id.retryButton)
+        errorText = headlineView.findViewById(R.id.errorText)
 
-        newsViewModel = (activity as NewsActivity).newsViewModel
+        newsViewModel = (activity as MainActivity).newsViewModel
         setupHeadlinesRecycler()
 
         marketNewsAdapter.setOnItemClickListener {
@@ -77,12 +77,12 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
         }
 
         retryButton.setOnClickListener {
-            newsViewModel.getHeadlines("us")
+            newsViewModel.getMarketNews()
         }
     }
 
-    var isError = false
-    var isLoading = false
+    private var isError = false
+    private var isLoading = false
 
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
