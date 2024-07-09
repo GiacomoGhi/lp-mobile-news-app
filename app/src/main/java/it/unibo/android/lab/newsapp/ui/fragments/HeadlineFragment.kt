@@ -54,7 +54,7 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
             findNavController().navigate(R.id.action_headlinesFragment_to_articleFragment, bundle)
         }
 
-        newsViewModel.newsResponse.observe(viewLifecycleOwner) { response ->
+        newsViewModel.response.observe(viewLifecycleOwner) { response ->
             when(response){
                 is Resource.Success<*> -> {
                     hideProgressBar()
@@ -77,7 +77,7 @@ class HeadlineFragment : Fragment(R.layout.fragment_headline) {
         }
 
         retryButton.setOnClickListener {
-            newsViewModel.getMarketNews()
+            newsViewModel.getData()
         }
     }
 
