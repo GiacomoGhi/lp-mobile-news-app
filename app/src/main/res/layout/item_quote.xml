@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <!-- Currency Pair -->
+    <TextView
+        android:id="@+id/currency_pair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="AUDUSD.r"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Percentage Change -->
+    <TextView
+        android:id="@+id/percentage_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="+0.31%"
+        android:textColor="#00FF00"
+        android:textSize="16sp" />
+
+    <!-- Bid Price -->
+    <TextView
+        android:id="@+id/bid_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="0.66767"
+        android:textColor="#FF0000"
+        android:textSize="16sp" />
+
+    <!-- Ask Price -->
+    <TextView
+        android:id="@+id/ask_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="0.66767"
+        android:textColor="#FF0000"
+        android:textSize="16sp" />
+
+    <!-- Low Price -->
+    <TextView
+        android:id="@+id/low_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="L: 0.66528"
+        android:textColor="#CCCCCC"
+        android:textSize="14sp" />
+
+    <!-- High Price -->
+    <TextView
+        android:id="@+id/high_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="H: 0.66768"
+        android:textColor="#CCCCCC"
+        android:textSize="14sp" />
+
+</LinearLayout>
