@@ -61,4 +61,9 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         binding.paginationProgressBar.visibility = View.VISIBLE
         isLoading = true
     }
+
+    private fun hideErrorMessage() {
+        itemHeadlinesError.visibility = View.INVISIBLE
+        isError = false
+    }
 }
