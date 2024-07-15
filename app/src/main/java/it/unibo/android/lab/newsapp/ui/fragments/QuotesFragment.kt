@@ -34,4 +34,9 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
     //private lateinit var itemQuotesError: CardView
     private lateinit var binding: FragmentQuotesBinding
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentQuotesBinding.bind(view)
+    }
+
 }
