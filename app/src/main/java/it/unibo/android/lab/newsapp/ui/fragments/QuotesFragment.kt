@@ -66,4 +66,10 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         itemHeadlinesError.visibility = View.INVISIBLE
         isError = false
     }
+
+    private fun showErrorMessage(message: String) {
+        itemHeadlinesError.visibility = View.VISIBLE
+        errorText.text = message
+        isError = true
+    }
 }
