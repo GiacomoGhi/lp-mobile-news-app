@@ -31,14 +31,14 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
     //private lateinit var marketNewsAdapter: MarketNewsAdapter
     private lateinit var retryButton: Button
     private lateinit var errorText: TextView
-    //private lateinit var itemQuotesError: CardView
+    private lateinit var itemQuotesError: CardView
     private lateinit var binding: FragmentQuotesBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentQuotesBinding.bind(view)
 
-        //itemQuotesError = view.findViewById(R.id.itemHeadlinesError)
+        itemQuotesError = view.findViewById(R.id.itemQuotesError)
 
         val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val quotesView: View = inflater.inflate(R.layout.item_error, null)
@@ -46,8 +46,33 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         retryButton = quotesView.findViewById(R.id.retryButton)
         errorText = quotesView.findViewById(R.id.errorText)
 
+        quotesViewModel = (activity as MainActivity).quotesViewModel
+        //setupHeadlinesRecycler()
 
+        quotesViewModel.response.observe(viewLifecycleOwner) { response ->
+            when(response){
+                is Resource.Success<*> -> {
+                    hideProgressBar()
+                    hideErrorMessage()
+                    response.data?.let { newsResponse ->
+
+                        //Qui passo i dati a QuotesAdapter
+                    }
+                }
+                is Resource.Error<*> -> {
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Toast.makeText(activity, "Sorry error: $message", Toast.LENGTH_LONG).show()
+                        showErrorMessage(message)
+                    }
+                }
+                is Resource.Loading<*> -> {
+                    showProgressBar()
+                }
+            }
+        }
     }
+
 
     private var isError = false
     private var isLoading = false
@@ -63,13 +88,15 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
     }
 
     private fun hideErrorMessage() {
-        itemHeadlinesError.visibility = View.INVISIBLE
+        itemQuotesError.visibility = View.INVISIBLE
         isError = false
     }
 
     private fun showErrorMessage(message: String) {
-        itemHeadlinesError.visibility = View.VISIBLE
+        itemQuotesError.visibility = View.VISIBLE
         errorText.text = message
         isError = true
     }
+
+
 }
