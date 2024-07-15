@@ -46,9 +46,14 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         retryButton = quotesView.findViewById(R.id.retryButton)
         errorText = quotesView.findViewById(R.id.errorText)
 
-        quotesViewModel = (activity as MainActivity).quotesViewModel
 
-        //setupHeadlinesRecycler()
     }
 
+    private var isError = false
+    private var isLoading = false
+
+    private fun hideProgressBar() {
+        binding.paginationProgressBar.visibility = View.INVISIBLE
+        isLoading = false
+    }
 }
