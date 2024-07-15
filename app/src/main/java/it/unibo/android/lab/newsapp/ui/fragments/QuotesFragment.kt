@@ -28,7 +28,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
     private val TAG = "QuotesFragment"
 
     private lateinit var quotesViewModel: QuotesViewModel
-    //private lateinit var marketNewsAdapter: MarketNewsAdapter
+    private lateinit var quotesAdapter: QuotesAdapter
     private lateinit var retryButton: Button
     private lateinit var errorText: TextView
     private lateinit var itemQuotesError: CardView
@@ -50,7 +50,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         //setupHeadlinesRecycler()
 
         quotesViewModel.response.observe(viewLifecycleOwner) { response ->
-            when(response){
+            when (response) {
                 is Resource.Success<*> -> {
                     hideProgressBar()
                     hideErrorMessage()
@@ -59,6 +59,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
                         //Qui passo i dati a QuotesAdapter
                     }
                 }
+
                 is Resource.Error<*> -> {
                     hideProgressBar()
                     response.message?.let { message ->
@@ -66,6 +67,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
                         showErrorMessage(message)
                     }
                 }
+
                 is Resource.Loading<*> -> {
                     showProgressBar()
                 }
@@ -98,5 +100,13 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         isError = true
     }
 
+    private fun setupQuotesRecycler() {
+        quotesAdapter = QuotesAdapter()
+        binding.recyclerQuotes.apply {
+            adapter = quotesAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
 
+
+    }
 }
