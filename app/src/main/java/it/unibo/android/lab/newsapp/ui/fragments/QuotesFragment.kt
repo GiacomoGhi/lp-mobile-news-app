@@ -37,6 +37,16 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentQuotesBinding.bind(view)
+
+        //itemQuotesError = view.findViewById(R.id.itemHeadlinesError)
+
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val quotesView: View = inflater.inflate(R.layout.item_error, null)
+
+        retryButton = quotesView.findViewById(R.id.retryButton)
+        errorText = quotesView.findViewById(R.id.errorText)
+
+        //setupHeadlinesRecycler()
     }
 
 }
