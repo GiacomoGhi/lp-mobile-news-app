@@ -56,4 +56,9 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         binding.paginationProgressBar.visibility = View.INVISIBLE
         isLoading = false
     }
+
+    private fun showProgressBar() {
+        binding.paginationProgressBar.visibility = View.VISIBLE
+        isLoading = true
+    }
 }
