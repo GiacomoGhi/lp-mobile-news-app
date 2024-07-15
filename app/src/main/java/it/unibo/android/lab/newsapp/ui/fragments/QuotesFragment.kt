@@ -25,5 +25,13 @@ import it.unibo.android.lab.newsapp.util.Resource
 
 class QuotesFragment : Fragment(R.layout.fragment_quotes) {
 
+    private val TAG = "QuotesFragment"
+
+    private lateinit var quotesViewModel: QuotesViewModel
+    //private lateinit var marketNewsAdapter: MarketNewsAdapter
+    private lateinit var retryButton: Button
+    private lateinit var errorText: TextView
+    //private lateinit var itemQuotesError: CardView
+    private lateinit var binding: FragmentQuotesBinding
 
 }
