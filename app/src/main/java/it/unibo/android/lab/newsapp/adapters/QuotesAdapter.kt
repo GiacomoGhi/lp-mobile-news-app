@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.models.NewsBody
 import it.unibo.android.lab.newsapp.models.QuotesBody
@@ -20,6 +21,7 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
         val askPrice : TextView = itemView.findViewById(R.id.ask_price)
         val lowPrice : TextView = itemView.findViewById(R.id.low_price)
         val highPrice : TextView = itemView.findViewById(R.id.high_price)
+        val symbol : TextView = itemView.findViewById((R.id.symbol))
     }
 
     private val differCallback = object : DiffUtil.ItemCallback<QuotesBody>() {
@@ -44,7 +46,18 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: QuotesViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val quotesWindow = differ.currentList[position]
+
+        holder.itemView.apply {
+            holder.currencyPair.text = quotesWindow.currency
+            holder.percentageChange.text = quotesWindow.regularMarketChangePercent.toString()
+            holder.bidPrice.text = quotesWindow.bid.toString()
+            holder.askPrice.text = quotesWindow.ask.toString()
+            //holder.lowPrice.text = quotesWindow.?.toString()
+            //holder.highPrice.text = quotesWindow.?.toString()
+            holder.symbol.text = quotesWindow.symbol
+
+        }
     }
 
 
