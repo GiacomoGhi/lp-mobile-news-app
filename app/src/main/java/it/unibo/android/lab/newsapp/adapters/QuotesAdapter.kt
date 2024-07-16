@@ -3,6 +3,7 @@ package it.unibo.android.lab.newsapp.adapters
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import it.unibo.android.lab.newsapp.R
@@ -29,6 +30,8 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
             return oldItem == newItem
         }
     }
+
+    val differ = AsyncListDiffer(this,differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuotesViewHolder {
         TODO("Not yet implemented")
