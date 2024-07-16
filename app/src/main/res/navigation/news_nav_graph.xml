@@ -22,15 +22,6 @@
 
     </fragment>
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="it.unibo.android.lab.newsapp.ui.fragments.SearchFragment"
-        android:label="SearchFragment">
-        <action
-            android:id="@+id/action_searchFragment_to_articleFragment"
-            app:destination="@id/articleFragment"/>
-
-    </fragment>
-    <fragment
         android:id="@+id/articleFragment"
         android:name="it.unibo.android.lab.newsapp.ui.fragments.ArticleFragment"
         android:label="ArticleFragment" >
@@ -38,4 +29,8 @@
             android:name="article"
             app:argType="it.unibo.android.lab.newsapp.models.NewsBody" />
     </fragment>
+    <fragment
+        android:id="@+id/quotesFragment"
+        android:name="it.unibo.android.lab.newsapp.ui.fragments.QuotesFragment"
+        android:label="QuotesFragment" />
 </navigation>

@@ -27,6 +27,6 @@ class QuotesViewModel(
   }
 
   override suspend fun fetchData() {
-    getData { quotesRepository.getQuotes(null) }
+    getData { quotesRepository.getQuotes() }
   }
 }

@@ -47,7 +47,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         errorText = quotesView.findViewById(R.id.errorText)
 
         quotesViewModel = (activity as MainActivity).quotesViewModel
-        //setupHeadlinesRecycler()
+        setupQuotesRecycler()
 
         quotesViewModel.response.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -73,6 +73,10 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
                     showProgressBar()
                 }
             }
+        }
+
+        retryButton.setOnClickListener {
+            quotesViewModel.getData()
         }
     }
 
