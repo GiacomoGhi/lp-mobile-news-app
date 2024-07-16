@@ -40,7 +40,7 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return differ.currentList.size
     }
 
     override fun onBindViewHolder(holder: QuotesViewHolder, position: Int) {
