@@ -56,6 +56,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
                     hideErrorMessage()
                     response.data?.let { newsResponse ->
 
+                        quotesAdapter.differ.submitList(newsResponse.body.toList())
                         //Qui passo i dati a QuotesAdapter
                     }
                 }
