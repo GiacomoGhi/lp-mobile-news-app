@@ -53,14 +53,17 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
 
         holder.itemView.apply {
             holder.currencyPair.text = quotesWindow.currency
-            holder.percentageChange.text = quotesWindow.regularMarketChangePercent.toString()
+
             holder.bidPrice.text = quotesWindow.bid.toString()
             holder.askPrice.text = quotesWindow.ask.toString()
             //holder.lowPrice.text = quotesWindow.?.toString()
             //holder.highPrice.text = quotesWindow.?.toString()
             holder.symbol.text = quotesWindow.symbol
 
-            val value = quotesWindow.regularMarketChangePercent.toString().trim('%').toDouble()
+            val value = quotesWindow.regularMarketChangePercent
+            val formattedPercentage = String.format("%.3f%%", value)
+            holder.percentageChange.text = formattedPercentage
+
             if(value >= 0) {
                 holder.percentageChange.setTextColor(Color.GREEN)
             } else {
