@@ -9,5 +9,7 @@ data class QuotesBody(
     val displayName: String, // Apple
     val longName: String, // Apple inc ecc..
     val symbol: String, // APL
-    val regularMarketChangePercent: Double //percentuale che sta sopra al nome (di variazione del prezzo in quel giorno)
+    val regularMarketChangePercent: Double, //percentuale che sta sopra al nome (di variazione del prezzo in quel giorno)
+    val regularMarketDayHigh: Double, // Prezzo massimo di giornata
+    val regularMarketDayLow: Double, // Prezzo minimo di giornata
 ): Serializable

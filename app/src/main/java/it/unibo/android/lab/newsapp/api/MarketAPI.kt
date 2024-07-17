@@ -19,7 +19,7 @@ interface MarketAPI {
   suspend fun getMarketQuotes(
     @Query("ticker")
     // uses some default values
-    ticker: String? = "AAPL, MSFT, ^SPX, ^NYA, GAZP.ME, SIBN.ME, GEECEE.NS",
+    ticker: String? = "AAPL, MSFT, ^SPX, ^NYA, GAZP.ME, SIBN.ME, GEECEE.NS, GOOG, NVDA, AMZN, META",
     @Header("X-RapidAPI-Key")
     apiKey: String = Costants.API_KEY_YH
   ): Response<QuotesResponse>

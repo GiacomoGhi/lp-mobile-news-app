@@ -56,8 +56,8 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
 
             holder.bidPrice.text = quotesWindow.bid.toString()
             holder.askPrice.text = quotesWindow.ask.toString()
-            //holder.lowPrice.text = quotesWindow.?.toString()
-            //holder.highPrice.text = quotesWindow.?.toString()
+            holder.lowPrice.text = quotesWindow.regularMarketDayLow.toString()
+            holder.highPrice.text = quotesWindow.regularMarketDayHigh.toString()
             holder.symbol.text = quotesWindow.symbol
 
             val value = quotesWindow.regularMarketChangePercent
