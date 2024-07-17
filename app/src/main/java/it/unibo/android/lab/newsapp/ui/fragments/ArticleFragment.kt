@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.webkit.WebViewClient
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import it.unibo.android.lab.newsapp.R
@@ -36,10 +37,15 @@ class ArticleFragment : Fragment(R.layout.fragment_article){
             }
         }
 
+        binding.backArrow.setOnClickListener{
+            findNavController().navigate(R.id.action_articleFragment_to_headlinesFragment)
+
+        }
+
         binding.fab.setOnClickListener {
             newsViewModel.addToFavourites(article)
             // Snackbar is used to inform the user that the article has been added to fav
-            Snackbar.make(view, "Added to favourites!", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, "Added to watch later!", Snackbar.LENGTH_SHORT).show()
         }
     }
 
