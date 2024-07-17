@@ -28,6 +28,9 @@
         <argument
             android:name="article"
             app:argType="it.unibo.android.lab.newsapp.models.NewsBody" />
+        <action
+            android:id="@+id/action_articleFragment_to_headlinesFragment"
+            app:destination="@id/headlinesFragment" />
     </fragment>
     <fragment
         android:id="@+id/quotesFragment"
