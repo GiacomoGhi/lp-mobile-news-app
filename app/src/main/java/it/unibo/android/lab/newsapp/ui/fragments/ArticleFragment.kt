@@ -32,9 +32,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article){
         binding.webView.apply {
             // webViewClient handles various events in the webView such as when a new URL is about to be loaded
             webViewClient = WebViewClient()
-            article.url?.let {
-                loadUrl(it)
-            }
+            loadUrl(article.url)
         }
 
         binding.backArrow.setOnClickListener{
@@ -43,8 +41,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article){
         }
 
         binding.fab.setOnClickListener {
-            newsViewModel.addToFavourites(article)
-            // Snackbar is used to inform the user that the article has been added to fav
+            newsViewModel.addToWatchLater(article)
             Snackbar.make(view, "Added to watch later!", Snackbar.LENGTH_SHORT).show()
         }
     }

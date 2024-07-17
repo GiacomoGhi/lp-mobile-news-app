@@ -16,6 +16,11 @@ interface NewsBodyDAO {
 
     @Query("SELECT * FROM newsBody")
     fun getAllArticles(): LiveData<List<NewsBody>>
+    @Query("SELECT * FROM newsBody")
+    fun getArticlesSync(): List<NewsBody>
+
+    @Query("SELECT * FROM newsBody WHERE url = :url")
+    suspend fun getArticleById(url: String): NewsBody?
 
     @Delete
     suspend fun deleteArticle(article: NewsBody)

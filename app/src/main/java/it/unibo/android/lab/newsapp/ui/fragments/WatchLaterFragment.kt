@@ -38,9 +38,9 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
         newsViewModel = (activity as MainActivity).newsViewModel
         setUpWatchLaterRecycler()
 
-        marketNewsAdapter.setOnItemClickListener { newsBody ->
+        marketNewsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("NewsBody", newsBody)
+                putSerializable("article", it)
             }
             Log.d(TAG, "Navigate to article with bundle content: $bundle")
             findNavController().navigate(R.id.action_watchLaterFragment_to_articleFragment, bundle)
@@ -65,7 +65,7 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
                 newsViewModel.deleteArticle(article)
                 Snackbar.make(view, "Removed from watch later", Snackbar.LENGTH_LONG).apply {
                     setAction("Undo"){
-                        newsViewModel.addToFavourites(article)
+                        newsViewModel.addToWatchLater(article)
                     }
                     show()
                 }
@@ -76,7 +76,7 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
             attachToRecyclerView(binding.recyclerWatchLater)
         }
 
-        newsViewModel.getFavouriteNews().observe(viewLifecycleOwner, Observer { newsBody ->
+        newsViewModel.getWatchLaterNews().observe(viewLifecycleOwner, Observer { newsBody ->
             marketNewsAdapter.differ.submitList(newsBody)
         })
     }

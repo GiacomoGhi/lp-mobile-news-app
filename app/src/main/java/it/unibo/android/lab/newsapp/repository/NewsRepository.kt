@@ -8,9 +8,15 @@ class NewsRepository(val db: NewsBodyDatabase) {
     suspend fun getNews() =
         RetrofitInstance.apiClient.getMarketNews()
 
-    suspend fun upsert(article: NewsBody) = db.getArticleDao().upsert(article)
+    suspend fun upsert(article: NewsBody) {
+        val existingArticle = db.getArticleDao().getArticleById(article.url)
+        if (existingArticle == null) {
+            // Article doesn't exist, insert it
+            db.getArticleDao().upsert(article)
+        }
+    }
 
-    fun getFavouriteNews() = db.getArticleDao().getAllArticles()
+    fun getWatchLaterNews() = db.getArticleDao().getAllArticles()
 
     suspend fun deleteArticle(article: NewsBody) = db.getArticleDao().deleteArticle(article)
 }

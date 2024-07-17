@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import it.unibo.android.lab.newsapp.models.NewsBody
 import it.unibo.android.lab.newsapp.models.NewsResponse
@@ -31,11 +32,11 @@ class NewsViewModel(
         getData { newsRepository.getNews() }
     }
 
-    fun addToFavourites(article: NewsBody) = viewModelScope.launch {
+    fun addToWatchLater(article: NewsBody) = viewModelScope.launch {
         newsRepository.upsert(article)
     }
 
-    fun getFavouriteNews() = newsRepository.getFavouriteNews()
+    fun getWatchLaterNews() = newsRepository.getWatchLaterNews()
 
     fun deleteArticle(article: NewsBody) = viewModelScope.launch {
         newsRepository.deleteArticle(article)
