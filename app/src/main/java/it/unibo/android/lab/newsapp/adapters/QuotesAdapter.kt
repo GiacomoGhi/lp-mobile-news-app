@@ -1,5 +1,6 @@
 package it.unibo.android.lab.newsapp.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,8 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
         val highPrice : TextView = itemView.findViewById(R.id.high_price)
         val symbol : TextView = itemView.findViewById((R.id.symbol))
     }
+
+
 
     private val differCallback = object : DiffUtil.ItemCallback<QuotesBody>() {
         override fun areItemsTheSame(oldItem: QuotesBody, newItem: QuotesBody): Boolean {
@@ -56,6 +59,14 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
             //holder.lowPrice.text = quotesWindow.?.toString()
             //holder.highPrice.text = quotesWindow.?.toString()
             holder.symbol.text = quotesWindow.symbol
+
+            val value = quotesWindow.regularMarketChangePercent.toString().trim('%').toDouble()
+            if(value >= 0) {
+                holder.percentageChange.setTextColor(Color.GREEN)
+            } else {
+                holder.percentageChange.setTextColor(Color.RED)
+
+            }
 
         }
     }
