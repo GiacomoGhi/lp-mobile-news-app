@@ -9,10 +9,10 @@
     <item
         android:id="@+id/watchLaterFragment"
         android:title="@string/menu_WatchLater"
-        android:icon="@drawable/baseline_favorite_24"/>
+        android:icon="@drawable/baseline_access_time_24"/>
 
     <item
         android:id="@+id/quotesFragment"
         android:title="@string/quotes_title"
-        android:icon="@drawable/baseline_search_24"/>
+        android:icon="@drawable/baseline_area_chart_24"/>
 </menu>
