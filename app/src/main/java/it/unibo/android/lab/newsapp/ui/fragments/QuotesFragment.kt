@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -31,12 +30,14 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
     private lateinit var errorText: TextView
     private lateinit var itemQuotesError: CardView
     private lateinit var binding: FragmentQuotesBinding
+    private lateinit var noResultsText: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentQuotesBinding.bind(view)
 
         itemQuotesError = view.findViewById(R.id.itemQuotesError)
+        noResultsText = view.findViewById(R.id.noResultsText)
 
         val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val quotesView: View = inflater.inflate(R.layout.item_error, null)
@@ -117,6 +118,11 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 quotesAdapter.filter(s.toString())
+                if (quotesAdapter.itemCount == 0) {
+                    noResultsText.visibility = View.VISIBLE
+                } else {
+                    noResultsText.visibility = View.GONE
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {}
