@@ -34,12 +34,7 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
     }
 
     val differ = AsyncListDiffer(this, differCallback)
-    private var quotesList: List<QuotesBody> = listOf()
-
-    fun submitList(list: List<QuotesBody>) {
-        quotesList = list
-        differ.submitList(list)
-    }
+    private var fullList: List<QuotesBody> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuotesViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_quote, parent, false)
@@ -71,16 +66,26 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
             val formattedHighPrice = "H: %.2f".format(hp)
             holder.highPrice.text = formattedHighPrice
 
-            holder.percentageChange.setTextColor(if (value >= 0) Color.GREEN else Color.RED)
+            if (value >= 0) {
+                holder.percentageChange.setTextColor(Color.GREEN)
+            } else {
+                holder.percentageChange.setTextColor(Color.RED)
+            }
         }
+    }
+
+    fun submitList(list: List<QuotesBody>) {
+        fullList = list
+        differ.submitList(list)
     }
 
     fun filter(query: String) {
         val filteredList = if (query.isEmpty()) {
-            quotesList
+            fullList
         } else {
-            quotesList.filter {
-                it.symbol.contains(query, ignoreCase = true) || it.currency.contains(query, ignoreCase = true)
+            fullList.filter {
+                it.currency.contains(query, true) ||
+                        it.symbol.contains(query, true)
             }
         }
         differ.submitList(filteredList)
