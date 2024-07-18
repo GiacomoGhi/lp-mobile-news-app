@@ -2,24 +2,22 @@ package it.unibo.android.lab.newsapp.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import it.unibo.android.lab.newsapp.R
-import it.unibo.android.lab.newsapp.adapters.MarketNewsAdapter
-import it.unibo.android.lab.newsapp.databinding.FragmentHeadlineBinding
 import it.unibo.android.lab.newsapp.MainActivity
+import it.unibo.android.lab.newsapp.R
 import it.unibo.android.lab.newsapp.adapters.QuotesAdapter
 import it.unibo.android.lab.newsapp.databinding.FragmentQuotesBinding
-import it.unibo.android.lab.newsapp.models.QuotesResponse
-import it.unibo.android.lab.newsapp.ui.viewmodels.NewsViewModel
 import it.unibo.android.lab.newsapp.ui.viewmodels.QuotesViewModel
 import it.unibo.android.lab.newsapp.util.Resource
 
@@ -55,9 +53,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
                     hideProgressBar()
                     hideErrorMessage()
                     response.data?.let { newsResponse ->
-
-                        quotesAdapter.differ.submitList(newsResponse.body.toList())
-                        //Qui passo i dati a QuotesAdapter
+                        quotesAdapter.submitList(newsResponse.body.toList())
                     }
                 }
 
@@ -78,8 +74,9 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         retryButton.setOnClickListener {
             quotesViewModel.getData()
         }
-    }
 
+        setupSearch()
+    }
 
     private var isError = false
     private var isLoading = false
@@ -111,7 +108,18 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
             adapter = quotesAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+    }
 
+    private fun setupSearch() {
+        val searchEditText: EditText = binding.searchEdit
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                quotesAdapter.filter(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 }
