@@ -8,24 +8,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import it.unibo.android.lab.newsapp.R
-import it.unibo.android.lab.newsapp.models.NewsBody
 import it.unibo.android.lab.newsapp.models.QuotesBody
 
 class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
 
     inner class QuotesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val currencyPair: TextView = itemView.findViewById(R.id.currency_pair)
-        val percentageChange : TextView = itemView.findViewById(R.id.percentage_change)
-        val bidPrice : TextView = itemView.findViewById(R.id.bid_price)
-        val askPrice : TextView = itemView.findViewById(R.id.ask_price)
-        val lowPrice : TextView = itemView.findViewById(R.id.low_price)
-        val highPrice : TextView = itemView.findViewById(R.id.high_price)
-        val symbol : TextView = itemView.findViewById((R.id.symbol))
+        val percentageChange: TextView = itemView.findViewById(R.id.percentage_change)
+        val bidPrice: TextView = itemView.findViewById(R.id.bid_price)
+        val askPrice: TextView = itemView.findViewById(R.id.ask_price)
+        val lowPrice: TextView = itemView.findViewById(R.id.low_price)
+        val highPrice: TextView = itemView.findViewById(R.id.high_price)
+        val symbol: TextView = itemView.findViewById(R.id.symbol)
     }
-
-
 
     private val differCallback = object : DiffUtil.ItemCallback<QuotesBody>() {
         override fun areItemsTheSame(oldItem: QuotesBody, newItem: QuotesBody): Boolean {
@@ -37,7 +33,13 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
         }
     }
 
-    val differ = AsyncListDiffer(this,differCallback)
+    val differ = AsyncListDiffer(this, differCallback)
+    private var quotesList: List<QuotesBody> = listOf()
+
+    fun submitList(list: List<QuotesBody>) {
+        quotesList = list
+        differ.submitList(list)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuotesViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_quote, parent, false)
@@ -53,7 +55,6 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
 
         holder.itemView.apply {
             holder.currencyPair.text = quotesWindow.currency
-
             holder.bidPrice.text = quotesWindow.bid.toString()
             holder.askPrice.text = quotesWindow.ask.toString()
             holder.symbol.text = quotesWindow.symbol
@@ -70,13 +71,18 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuotesViewHolder>() {
             val formattedHighPrice = "H: %.2f".format(hp)
             holder.highPrice.text = formattedHighPrice
 
-            if(value >= 0) {
-                holder.percentageChange.setTextColor(Color.GREEN)
-            } else {
-                holder.percentageChange.setTextColor(Color.RED)
-
-            }
-
+            holder.percentageChange.setTextColor(if (value >= 0) Color.GREEN else Color.RED)
         }
+    }
+
+    fun filter(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            quotesList
+        } else {
+            quotesList.filter {
+                it.symbol.contains(query, ignoreCase = true) || it.currency.contains(query, ignoreCase = true)
+            }
+        }
+        differ.submitList(filteredList)
     }
 }
