@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -31,6 +32,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
     private lateinit var itemQuotesError: CardView
     private lateinit var binding: FragmentQuotesBinding
     private lateinit var noResultsText: TextView
+    private lateinit var searchEditText: EditText
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +40,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
 
         itemQuotesError = view.findViewById(R.id.itemQuotesError)
         noResultsText = view.findViewById(R.id.noResultsText)
+        searchEditText = binding.searchEdit
 
         val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val quotesView: View = inflater.inflate(R.layout.item_error, null)
@@ -55,6 +58,7 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
                     hideErrorMessage()
                     response.data?.let { newsResponse ->
                         quotesAdapter.submitList(newsResponse.body.toList())
+                        checkNoResults()
                     }
                 }
 
@@ -77,6 +81,11 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
         }
 
         setupSearch()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        resetSearch()
     }
 
     private var isError = false
@@ -112,20 +121,29 @@ class QuotesFragment : Fragment(R.layout.fragment_quotes) {
     }
 
     private fun setupSearch() {
-        val searchEditText: EditText = binding.searchEdit
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 quotesAdapter.filter(s.toString())
-                if (quotesAdapter.itemCount == 0) {
-                    noResultsText.visibility = View.VISIBLE
-                } else {
-                    noResultsText.visibility = View.GONE
-                }
+                checkNoResults()
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
+    }
+
+    private fun resetSearch() {
+        searchEditText.text.clear()
+        quotesAdapter.filter("")
+        noResultsText.visibility = View.GONE
+    }
+
+    private fun checkNoResults() {
+        if (quotesAdapter.itemCount == 0) {
+            noResultsText.visibility = View.VISIBLE
+        } else {
+            noResultsText.visibility = View.GONE
+        }
     }
 }
