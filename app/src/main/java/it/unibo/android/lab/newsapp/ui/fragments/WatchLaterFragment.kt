@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -30,6 +31,7 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
     lateinit var newsViewModel: NewsViewModel
     lateinit var marketNewsAdapter: MarketNewsAdapter
     private lateinit var binding: FragmentWatchlaterBinding
+    private lateinit var noItemsText: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,8 +78,19 @@ class WatchLaterFragment : Fragment(R.layout.fragment_watchlater) {
             attachToRecyclerView(binding.recyclerWatchLater)
         }
 
+        noItemsText = view.findViewById(R.id.noItemsText)
+
         newsViewModel.getWatchLaterNews().observe(viewLifecycleOwner, Observer { newsBody ->
             marketNewsAdapter.differ.submitList(newsBody)
+
+            if (newsBody.isNullOrEmpty()) {
+                noItemsText.visibility = View.VISIBLE
+                binding.recyclerWatchLater.visibility = View.GONE
+            } else {
+                noItemsText.visibility = View.GONE
+                binding.recyclerWatchLater.visibility = View.VISIBLE
+                marketNewsAdapter.differ.submitList(newsBody)
+            }
         })
     }
 
