@@ -4,4 +4,7 @@
     <string name="menu_WatchLater">Watch Later</string>
     <string name="menu_search">Search</string>
     <string name="quotes_title">Quotes</string>
+    <string name="no_items_in_watch_later">No items added yet!\n
+        You can add one by clicking the button in the bottom-right
+        corner of an article!</string>
 </resources>
